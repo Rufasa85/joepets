@@ -5,4 +5,7 @@ router.get("/",(req,res)=>{
     res.send("welcome to my application!")
 })
 
+const userRoutes = require("./userRoutes");
+router.use("/api/users",userRoutes)
+
 module.exports = router;
