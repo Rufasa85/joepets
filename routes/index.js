@@ -8,4 +8,7 @@ router.get("/",(req,res)=>{
 const userRoutes = require("./userRoutes");
 router.use("/api/users",userRoutes)
 
+const petRoutes = require("./petRoutes");
+router.use("/api/pets",petRoutes)
+
 module.exports = router;

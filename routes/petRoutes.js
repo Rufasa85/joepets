@@ -1,15 +1,15 @@
 const express = require("express");
 const router = express.Router();
-const {User,Pet} = require("../models/");
+const {Pet,User} = require("../models/");
 
 
 //find all
 router.get("/", (req, res) => {
-  User.findAll({
-  
+  Pet.findAll({
+      include:[User]
   })
-    .then(dbUsers => {
-      res.json(dbUsers);
+    .then(dbPets => {
+      res.json(dbPets);
     })
     .catch(err => {
       console.log(err);
@@ -18,11 +18,9 @@ router.get("/", (req, res) => {
 });
 //find one
 router.get("/:id", (req, res) => {
-  User.findByPk(req.params.id,{
-    include:[Pet]
-  })
-    .then(dbUser => {
-      res.json(dbUser);
+  Pet.findByPk(req.params.id)
+    .then(dbPets => {
+      res.json(dbPets);
     })
     .catch(err => {
       console.log(err);
@@ -32,9 +30,9 @@ router.get("/:id", (req, res) => {
 
 //create user
 router.post("/", (req, res) => {
-  User.create(req.body)
-    .then(newUser => {
-      res.json(newUser);
+  Pet.create(req.body)
+    .then(newPet => {
+      res.json(newPet);
     })
     .catch(err => {
       console.log(err);
@@ -44,12 +42,12 @@ router.post("/", (req, res) => {
 
 //update user
 router.put("/:id", (req, res) => {
-  User.update(req.body, {
+  Pet.update(req.body, {
     where: {
       id: req.params.id
     }
-  }).then(updatedUser => {
-    res.json(updatedUser);
+  }).then(updatedPet => {
+    res.json(updatedPet);
   })
   .catch(err => {
     console.log(err);
@@ -59,7 +57,7 @@ router.put("/:id", (req, res) => {
 
 //delete a user
 router.delete("/:id", (req, res) => {
-  User.destroy({
+  Pet.destroy({
     where: {
       id: req.params.id
     }
