@@ -11,4 +11,7 @@ router.use("/api/users",userRoutes)
 const petRoutes = require("./petRoutes");
 router.use("/api/pets",petRoutes)
 
+const toyRoutes = require("./toyRoutes");
+router.use("/api/toys",toyRoutes)
+
 module.exports = router;

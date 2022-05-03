@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const {Pet,User} = require("../models/");
+const {Pet,User,Toy} = require("../models/");
 
 
 //find all
@@ -18,7 +18,9 @@ router.get("/", (req, res) => {
 });
 //find one
 router.get("/:id", (req, res) => {
-  Pet.findByPk(req.params.id)
+  Pet.findByPk(req.params.id,{
+    include:[Toy]
+  })
     .then(dbPets => {
       res.json(dbPets);
     })
