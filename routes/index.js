@@ -14,4 +14,7 @@ router.use("/api/pets",petRoutes)
 const toyRoutes = require("./toyRoutes");
 router.use("/api/toys",toyRoutes)
 
+const categoryRoutes = require("./categoryRoutes");
+router.use("/api/categories",categoryRoutes)
+
 module.exports = router;

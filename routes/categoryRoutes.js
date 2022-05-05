@@ -1,15 +1,15 @@
 const express = require("express");
 const router = express.Router();
-const {Toy,Category,ToyCategory} = require("../models/");
+const {Category,Toy} = require("../models/");
 
 
 //find all
 router.get("/", (req, res) => {
-  Toy.findAll({
-    include:[Category]
+  Category.findAll({
+    include:[Toy]
   })
-    .then(dbToys => {
-      res.json(dbToys);
+    .then(dbCategorys => {
+      res.json(dbCategorys);
     })
     .catch(err => {
       console.log(err);
@@ -18,9 +18,9 @@ router.get("/", (req, res) => {
 });
 //find one
 router.get("/:id", (req, res) => {
-  Toy.findByPk(req.params.id)
-    .then(dbToys => {
-      res.json(dbToys);
+  Category.findByPk(req.params.id)
+    .then(dbCategorys => {
+      res.json(dbCategorys);
     })
     .catch(err => {
       console.log(err);
@@ -30,34 +30,24 @@ router.get("/:id", (req, res) => {
 
 //create user
 router.post("/", (req, res) => {
-  Toy.create(req.body)
-    .then(newToy => {
-      res.json(newToy);
+  Category.create(req.body)
+    .then(newCategory => {
+      res.json(newCategory);
     })
     .catch(err => {
       console.log(err);
       res.status(500).json({ msg: "an error occured", err });
     });
 });
-router.post("/:id/addcategory/:catid", (req, res) => {
-  Toy.findByPk(req.params.id).then(toyData=>{
-   ToyCategory.create({
-     toy_id:toyData.id,
-     category_id:req.params.catid
-   }).then(data=>{
-     res.json(toyData);
-    })
-  })
-});
 
 //update user
 router.put("/:id", (req, res) => {
-  Toy.update(req.body, {
+  Category.update(req.body, {
     where: {
       id: req.params.id
     }
-  }).then(updatedToy => {
-    res.json(updatedToy);
+  }).then(updatedCategory => {
+    res.json(updatedCategory);
   })
   .catch(err => {
     console.log(err);
@@ -67,12 +57,12 @@ router.put("/:id", (req, res) => {
 
 //delete a user
 router.delete("/:id", (req, res) => {
-  Toy.destroy({
+  Category.destroy({
     where: {
       id: req.params.id
     }
-  }).then(delToy => {
-    res.json(delToy);
+  }).then(delCategory => {
+    res.json(delCategory);
   })
   .catch(err => {
     console.log(err);
